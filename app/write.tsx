@@ -6,9 +6,6 @@ export default function WriteScreen() {
     <SafeAreaView className="flex-1 bg-background">
       {/* 헤더: 테두리 없애고, 폰트 키우고, 여백 추가 */}
       <View className="px-6 pt-6 pb-4">
-        <Text className="text-foreground text-lg font-medium opacity-70">
-          오늘의 한 잔 🥃
-        </Text>
         <Text className="text-3xl font-extrabold text-foreground mt-1">
           테이스팅 노트 기록
         </Text>

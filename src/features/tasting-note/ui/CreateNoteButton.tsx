@@ -4,7 +4,7 @@ import { TouchableOpacity, Platform } from 'react-native';
 
 export function CreateNoteButton() {
   const handlePress = () => {
-    router.push('/(tabs)/write');
+    router.push('/write');
   };
 
   return (

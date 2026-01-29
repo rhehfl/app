@@ -9,6 +9,15 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="write"
+          options={{
+            presentation: 'modal',
+            headerShown: true,
+            title: '새 노트 작성',
+            headerBackTitle: '취소',
+          }}
+        />
       </Stack>
     </QueryClientProvider>
   );

@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { Home, Search, User, NotebookPen } from 'lucide-react-native';
+import { Home, Search, User } from 'lucide-react-native';
 import { useColorScheme } from 'nativewind';
 
 export default function TabLayout() {
@@ -47,13 +47,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <Search color={color} size={30} />,
         }}
       />
-      <Tabs.Screen
-        name="write"
-        options={{
-          title: '기록',
-          tabBarIcon: ({ color }) => <NotebookPen color={color} size={30} />,
-        }}
-      />
+
       <Tabs.Screen
         name="profile"
         options={{
