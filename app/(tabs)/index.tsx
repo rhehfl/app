@@ -5,6 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Loading } from '@/shared';
 
+import { CreateNoteButton } from '@/features/tasting-note';
+
 import { NoteList } from '@/entities/tasting-note';
 
 export default function HomeScreen() {
@@ -18,6 +20,7 @@ export default function HomeScreen() {
           <NoteList></NoteList>
         </Suspense>
       </View>
+      <CreateNoteButton />
     </SafeAreaView>
   );
 }
