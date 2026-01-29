@@ -1,5 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useFocusEffect, router } from 'expo-router';
 import { PenSquare } from 'lucide-react-native';
 import {
@@ -7,53 +8,33 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ActivityIndicator,
   RefreshControl,
 } from 'react-native';
 
-import type { TastingNote } from '@/entities/tasting-note';
-import { getTastingNotes } from '@/entities/tasting-note/api/getNotes';
+import { tastingNoteKeys } from '@/entities/tasting-note/queries/queryKet';
 import { TastingNoteCard } from '@/entities/tasting-note/ui/TastingNoteCard';
 
 export function NoteList() {
-  const [notes, setNotes] = useState<TastingNote[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
-
-  const fetchData = async () => {
-    try {
-      const data = await getTastingNotes();
-      setNotes(data);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
-  };
-
+  const {
+    data: notes,
+    refetch,
+    isRefetching,
+  } = useSuspenseQuery(tastingNoteKeys.list());
   useFocusEffect(
     useCallback(() => {
-      fetchData();
-    }, []),
+      refetch();
+    }, [refetch]),
   );
 
-  const onRefresh = () => {
-    setRefreshing(true);
-    fetchData();
+  const onRefresh = async () => {
+    await refetch();
   };
 
-  if (loading) {
-    return (
-      <View className="flex-1 justify-center items-center py-20">
-        <ActivityIndicator size="large" color="#fbbf24" />
-      </View>
-    );
-  }
-
+  // 2. 데이터 없음 (Empty State)
   if (!notes || notes.length === 0) {
     return (
       <View className="flex-1 items-center justify-center py-20 px-4">
+        {/* ... (기존 Empty UI 코드 동일) ... */}
         <View className="w-20 h-20 bg-muted rounded-full items-center justify-center mb-6">
           <PenSquare size={40} className="text-muted-foreground opacity-50" />
         </View>
@@ -75,6 +56,7 @@ export function NoteList() {
     );
   }
 
+  // 3. 리스트 출력
   return (
     <FlatList
       data={notes}
@@ -89,7 +71,7 @@ export function NoteList() {
       showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl
-          refreshing={refreshing}
+          refreshing={isRefetching} // 👈 리액트 쿼리가 제공하는 상태 사용
           onRefresh={onRefresh}
           tintColor="#fbbf24"
         />
