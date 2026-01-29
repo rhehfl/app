@@ -40,5 +40,6 @@
     "javascriptreact",
     "typescript",
     "typescriptreact"
-  ]
+  ],
+  "cSpell.words": ["nativewind"]
 }
