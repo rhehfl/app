@@ -1,16 +1,19 @@
-import type { Whisky } from '@/entities/whisky';
-
 export interface TastingNote {
   id: string;
   userId: string;
   whiskyId: string;
-  whisky: Whisky;
-
   rating: number;
   content: string;
-
-  tags?: string[];
-
-  images?: string[];
+  imageUrls: string[] | null;
   createdAt: string;
+
+  whiskies: {
+    nameKo: string;
+    nameEn: string;
+    category?: string;
+  } | null;
+
+  nose?: { tags: string[] } | null;
+  palate?: { tags: string[] } | null;
+  finish?: { tags: string[] } | null;
 }
