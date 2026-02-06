@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { useFocusEffect, router } from 'expo-router';
+import { useFocusEffect } from 'expo-router';
 import { PenSquare } from 'lucide-react-native';
 import {
   FlatList,
@@ -11,7 +11,7 @@ import {
   RefreshControl,
 } from 'react-native';
 
-import { tastingNoteKeys } from '@/entities/tasting-note/queries/queryKet';
+import { tastingNoteKeys } from '@/entities/tasting-note/queries/queryKey';
 import { TastingNoteCard } from '@/entities/tasting-note/ui/TastingNoteCard';
 
 export function NoteList() {
@@ -44,10 +44,7 @@ export function NoteList() {
         <Text className="text-muted-foreground text-center mb-8">
           오늘 마신 위스키의 맛과 향을{'\n'}첫 번째 기록으로 남겨보세요!
         </Text>
-        <TouchableOpacity
-          onPress={() => router.push('/(tabs)/write')}
-          className="bg-primary px-6 py-3 rounded-full"
-        >
+        <TouchableOpacity className="bg-primary px-6 py-3 rounded-full">
           <Text className="text-primary-foreground font-bold">
             첫 기록 남기기
           </Text>

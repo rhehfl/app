@@ -66,10 +66,8 @@ export function FlavorAddModal({
     onClose();
   };
 
-  // 슬라이더 UI 계산
-  // 현재 점수가 전체의 몇 % 위치인지 (1점=0%, 10점=100%)
   const scorePercentage = (score - 1) / 9;
-  const knobSize = 28; // 손잡이 크기
+  const knobSize = 28;
 
   return (
     <Modal
@@ -83,7 +81,6 @@ export function FlavorAddModal({
         className="flex-1 justify-end bg-black/50"
       >
         <View className="bg-background rounded-t-3xl p-6 pb-10 shadow-2xl">
-          {/* 헤더 */}
           <View className="flex-row justify-between items-center mb-6">
             <Text className="text-xl font-bold text-foreground">
               {categoryName} 요소 추가
@@ -93,7 +90,6 @@ export function FlavorAddModal({
             </TouchableOpacity>
           </View>
 
-          {/* 1. 이름 입력 */}
           <Text className="text-sm font-medium text-muted-foreground mb-2">
             어떤 느낌인가요?
           </Text>
@@ -106,8 +102,6 @@ export function FlavorAddModal({
             autoFocus={visible}
             onSubmitEditing={handleSave}
           />
-
-          {/* 2. 강도(점수) 선택 - 드래그 슬라이더 */}
           <View className="mb-8">
             <View className="flex-row justify-between items-end mb-3">
               <Text className="text-sm font-medium text-muted-foreground">
@@ -117,20 +111,15 @@ export function FlavorAddModal({
                 {score}
               </Text>
             </View>
-
-            {/* 🎚️ 슬라이더 컨테이너 (터치 영역) */}
             <View
-              className="h-12 justify-center" // 터치 영역을 높게 잡아서 조작하기 쉽게 함
+              className="h-12 justify-center"
               {...panResponder.panHandlers}
               onLayout={(e) => {
-                // 실제 너비 측정 후 저장
                 sliderWidthRef.current = e.nativeEvent.layout.width;
-                setSliderWidth(e.nativeEvent.layout.width); // 리렌더링 트리거
+                setSliderWidth(e.nativeEvent.layout.width);
               }}
             >
-              {/* 배경 트랙 (회색 바) */}
               <View className="h-2 bg-muted rounded-full overflow-hidden">
-                {/* 채워진 트랙 (색상 바) */}
                 <View
                   className="h-full rounded-full"
                   style={{
@@ -161,7 +150,6 @@ export function FlavorAddModal({
             </View>
           </View>
 
-          {/* 저장 버튼 */}
           <TouchableOpacity
             onPress={handleSave}
             disabled={!name.trim()}

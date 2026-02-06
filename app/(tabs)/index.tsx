@@ -1,13 +1,9 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Loading } from '@/shared';
-
-import { CreateNoteButton } from '@/features/tasting-note';
-
-import { NoteList } from '@/entities/tasting-note';
+import { CreateNoteButton } from '@/features/tasting-note/ui/CreateNoteButton';
 
 export default function HomeScreen() {
   return (
@@ -16,9 +12,6 @@ export default function HomeScreen() {
         <Text className="text-3xl font-extrabold text-foreground mt-1">
           나의 테이스팅 노트
         </Text>
-        <Suspense fallback={<Loading />}>
-          <NoteList></NoteList>
-        </Suspense>
       </View>
       <CreateNoteButton />
     </SafeAreaView>

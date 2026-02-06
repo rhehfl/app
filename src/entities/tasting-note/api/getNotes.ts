@@ -1,4 +1,4 @@
-import type { TastingNote } from '@/entities/tasting-note/model/types';
+import type { TastingNote } from '@/entities/tasting-note/model/tastingNote';
 
 import { supabase } from '@/shared/lib/supabase';
 
