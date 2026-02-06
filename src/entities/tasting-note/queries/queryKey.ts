@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getTastingNotes } from '@/entities/tasting-note/api/getNotes';
+import { getTastingNotes } from '@/entities/tasting-note/api/getTastingNotes';
 
 export const tastingNoteKeys = {
   all: ['tasting-notes'] as const,
