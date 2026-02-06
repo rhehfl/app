@@ -1,3 +1,4 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
 import {
   View,
   Text,
@@ -8,14 +9,24 @@ import {
   Share,
 } from 'react-native';
 
-import type { TastingNote } from '@/entities/tasting-note/model/tastingNote';
+import { tastingNoteKeys } from '@/entities/tasting-note/queries/queryKey';
 
 interface NoteDetailProps {
-  note: TastingNote;
+  id: string;
   onClose: () => void;
 }
 
-export const NoteDetail = ({ note, onClose }: NoteDetailProps) => {
+export const NoteDetail = ({ id, onClose }: NoteDetailProps) => {
+  const { data: note } = useSuspenseQuery(tastingNoteKeys.detailQuery(id));
+
+  if (!note) {
+    return (
+      <View className="flex-1 items-center justify-center bg-stone-50 dark:bg-stone-950">
+        <Text className="text-stone-500">노트를 찾을 수 없습니다.</Text>
+      </View>
+    );
+  }
+
   const handleShare = async () => {
     try {
       await Share.share({

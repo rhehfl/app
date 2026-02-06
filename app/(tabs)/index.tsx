@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,8 +15,10 @@ export default function HomeScreen() {
           나의 테이스팅 노트
         </Text>
       </View>
-      <NoteList />
-      <CreateNoteButton />
+      <Suspense fallback={<Text className="p-6">로딩 중...</Text>}>
+        <NoteList />
+        <CreateNoteButton />
+      </Suspense>
     </SafeAreaView>
   );
 }
