@@ -18,6 +18,7 @@ export default function RootLayout() {
             headerBackTitle: '취소',
           }}
         />
+        <Stack.Screen name="note/[id]" options={{ headerShown: false }} />
       </Stack>
     </QueryClientProvider>
   );

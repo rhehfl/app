@@ -5,6 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { CreateNoteButton } from '@/features/tasting-note/ui/CreateNoteButton';
 
+import { NoteList } from '@/entities/tasting-note/ui/NoteList';
+
 export default function HomeScreen() {
   return (
     <SafeAreaView className="flex-1 bg-background">
@@ -13,6 +15,7 @@ export default function HomeScreen() {
           나의 테이스팅 노트
         </Text>
       </View>
+      <NoteList />
       <CreateNoteButton />
     </SafeAreaView>
   );

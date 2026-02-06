@@ -4,6 +4,7 @@ import { TASTING_NOTES_STORAGE_KEY } from '@/entities/tasting-note/constants/tas
 import type { TastingNote } from '@/entities/tasting-note/model/tastingNote';
 
 export async function addTastingNote(newNote: TastingNote): Promise<void> {
+  console.log('addTastingNote called with:', newNote);
   try {
     const jsonValue = await AsyncStorage.getItem(TASTING_NOTES_STORAGE_KEY);
     const existingNotes: TastingNote[] =

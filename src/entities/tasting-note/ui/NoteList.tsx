@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { useFocusEffect } from 'expo-router';
+import { useFocusEffect, router } from 'expo-router';
 import { PenSquare } from 'lucide-react-native';
 import {
   FlatList,
@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import { tastingNoteKeys } from '@/entities/tasting-note/queries/queryKey';
-import { TastingNoteCard } from '@/entities/tasting-note/ui/TastingNoteCard';
+import TastingNoteItem from '@/entities/tasting-note/ui/TastingNoteItem';
 
 export function NoteList() {
   const {
@@ -30,11 +30,9 @@ export function NoteList() {
     await refetch();
   };
 
-  // 2. 데이터 없음 (Empty State)
   if (!notes || notes.length === 0) {
     return (
       <View className="flex-1 items-center justify-center py-20 px-4">
-        {/* ... (기존 Empty UI 코드 동일) ... */}
         <View className="w-20 h-20 bg-muted rounded-full items-center justify-center mb-6">
           <PenSquare size={40} className="text-muted-foreground opacity-50" />
         </View>
@@ -59,9 +57,14 @@ export function NoteList() {
       data={notes}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-        <TastingNoteCard
-          note={item}
-          onPress={() => console.log('상세:', item.id)}
+        <TastingNoteItem
+          item={item}
+          onPress={() =>
+            router.push({
+              pathname: '/note/[id]',
+              params: { id: item.id },
+            })
+          }
         />
       )}
       contentContainerClassName="p-6 pb-32"
