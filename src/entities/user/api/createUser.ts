@@ -1,4 +1,5 @@
 import { supabase } from '@/shared/lib/supabase';
+
 import { generateNickname } from '../lib/generateNickname';
 import type { User } from '../model/types';
 

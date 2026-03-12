@@ -1,4 +1,5 @@
 import { supabase } from '@/shared/lib/supabase';
+
 import type { Battle, BattleLog, DurationDays } from '../model/types';
 
 export async function findOrCreateBattle(
@@ -88,4 +89,35 @@ export async function recordKm(
 
   if (error) throw new Error(error.message);
   return data;
+}
+
+export async function finalizeBattle(battleId: string): Promise<void> {
+  const { error } = await supabase.rpc('finalize_battle', {
+    p_battle_id: battleId,
+  });
+  if (error) throw new Error(error.message);
+}
+
+export async function getBattleWithUsers(id: string): Promise<{
+  battle: Battle;
+  user1Nickname: string;
+  user2Nickname: string | null;
+}> {
+  const { data, error } = await supabase
+    .from('battles')
+    .select(`
+      *,
+      user1:users!battles_user1_id_fkey(nickname),
+      user2:users!battles_user2_id_fkey(nickname)
+    `)
+    .eq('id', id)
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  return {
+    battle: data,
+    user1Nickname: (data.user1 as { nickname: string })?.nickname ?? '???',
+    user2Nickname: (data.user2 as { nickname: string } | null)?.nickname ?? null,
+  };
 }

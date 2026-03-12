@@ -106,6 +106,51 @@ create table battle_logs (
 - 익명 닉네임: `형용사 + 동물` 조합 랜덤 생성 (예: "빠른 치타", "용감한 독수리")
 - 에러 처리: 모든 Supabase 호출은 try/catch 또는 error 체크 필수
 
+## Import 순서 규칙 (eslint import/order — 위반 시 에러)
+
+그룹 사이에 반드시 빈 줄 1개. 그룹 내 알파벳 오름차순(대소문자 무시).
+
+```ts
+// 1. react (단독)
+import { useState } from 'react';
+
+// 2. 기타 external — 알파벳순: @react-native-* → @tanstack/* → expo-* → react-native
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'expo-router';
+import { View } from 'react-native';
+
+// 3. @/features/**
+import { RideTracker } from '@/features/tracking/ui/RideTracker';
+
+// 4. @/entities/**
+import { getBattleById } from '@/entities/battle/api/battle';
+
+// 5. @/shared/**
+import { supabase } from '@/shared/lib/supabase';
+
+// 6. relative (../ 또는 ./)
+import type { Battle } from '../model/types';
+```
+
+- FSD 레이어 간에도 각각 빈 줄 필수 (features / entities / shared 모두 별도 그룹)
+- `react`가 없으면 external 그룹만 작성, 빈 줄 후 internal 시작
+- `import type`도 동일한 규칙 적용
+
+## Expo Router 타입 라우팅 규칙 (typedRoutes: true)
+
+```ts
+// ❌ 에러 — 동적 경로에 템플릿 리터럴 사용 금지
+router.replace(`/battle/${id}`)
+
+// ✅ 동적 경로는 반드시 객체 형식
+router.replace({ pathname: '/battle/[id]', params: { id } })
+router.replace({ pathname: '/result/[id]', params: { id } })
+
+// ✅ 정적 경로는 문자열 그대로 사용 가능
+router.replace('/')
+```
+
 ## 주의사항
 
 - 위치 권한: `expo-location`의 `requestForegroundPermissionsAsync` 필수

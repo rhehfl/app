@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { View, Text, Pressable, ActivityIndicator } from 'react-native';
-import { useRouter } from 'expo-router';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createAnonymousUser } from '@/entities/user/api/createUser';
+import { useRouter } from 'expo-router';
+import { View, Text, Pressable, ActivityIndicator } from 'react-native';
+
 import { findOrCreateBattle } from '@/entities/battle/api/battle';
 import type { DurationDays } from '@/entities/battle/model/types';
+import { createAnonymousUser } from '@/entities/user/api/createUser';
 
 const DURATION_OPTIONS: { label: string; value: DurationDays }[] = [
   { label: '1일', value: 1 },
@@ -35,7 +37,10 @@ export default function HomeScreen() {
       const battle = await findOrCreateBattle(userId, duration);
 
       if (battle.status === 'active') {
-        router.replace(`/battle/${battle.id}`);
+        router.replace({
+          pathname: './battle/[id]',
+          params: { id: battle.id },
+        });
       } else {
         // 대기 상태
         setStatus(`매칭 대기 중... (대결 ID: ${battle.id.slice(0, 8)})`);

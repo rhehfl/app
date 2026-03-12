@@ -41,5 +41,6 @@
     "typescript",
     "typescriptreact"
   ],
-  "cSpell.words": ["nativewind", "supabase"]
+  "cSpell.words": ["nativewind", "supabase"],
+  "js/ts.tsdk.path": ".yarn/sdks/typescript/lib"
 }
