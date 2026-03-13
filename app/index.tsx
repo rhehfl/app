@@ -1,5 +1,5 @@
-import { Redirect } from 'expo-router';
+import { HomePage } from '@/pages/home';
 
-export default function Index() {
-  return <Redirect href="/(tabs)" />;
+export default function HomeScreen() {
+  return <HomePage />;
 }
