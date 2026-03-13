@@ -72,7 +72,7 @@ const commonBaseRules = [
   },
   {
     selector: 'typeProperty',
-    format: ['camelCase'],
+    format: ['camelCase', 'snake_case'],
     leadingUnderscore: 'allow',
   },
   {

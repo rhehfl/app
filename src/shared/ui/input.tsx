@@ -1,5 +1,6 @@
-import { cn } from '@/shared/lib/utils';
 import { Platform, TextInput, type TextInputProps } from 'react-native';
+
+import { cn } from '@/shared/lib/utils';
 
 function Input({ className, ...props }: TextInputProps & React.RefAttributes<TextInput>) {
   return (
